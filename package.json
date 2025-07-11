@@ -8,7 +8,7 @@
 	},
 	"repository": {
     "type": "git",
-    "url": "git+https://github.com/tolking/auto-upgrade-dependencies.git"
+    "url": "https://github.com/tolking/auto-upgrade-dependencies"
   },
   "keywords": [
     "node",
@@ -22,6 +22,7 @@
     "url": "https://github.com/tolking/auto-upgrade-dependencies/issues"
   },
   "homepage": "https://github.com/tolking/auto-upgrade-dependencies#readme",
+	"publisher": "tolking",
 	"categories": [
 		"Other"
 	],
@@ -84,6 +85,7 @@
 	"scripts": {
 		"dev": "tsc -watch -p ./",
 		"build": "tsc -p ./",
+		"test": "npm run lint:test",
 		"lint": "eslint . --fix --ext .ts,.mjs,.js",
     "lint:test": "npm run lint -- --max-warnings 0"
 	},
