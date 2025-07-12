@@ -3,6 +3,7 @@
 	"displayName": "Upgrade Dependencies",
 	"description": "Automatically detect and upgrade dependencies when lock files change",
 	"version": "0.0.1",
+	"publisher": "tolking",
 	"engines": {
 		"vscode": "^1.74.0"
 	},
@@ -22,7 +23,6 @@
     "url": "https://github.com/tolking/upgrade-dependencies/issues"
   },
   "homepage": "https://github.com/tolking/upgrade-dependencies#readme",
-	"publisher": "tolking",
 	"categories": [
 		"Other"
 	],
@@ -31,11 +31,7 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [
-			{
-				"command": "extension.upgradeDependencies",
-				"title": "%extension.upgradeDependencies.title%"
-			},
+		"commands": [ 
 			{
 				"command": "extension.manualInstallDependencies",
 				"title": "%extension.manualInstallDependencies.title%",

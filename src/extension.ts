@@ -8,19 +8,6 @@ import { genMd5, getCurrentWorkspacePath, initCache, runCommand } from './utils'
 export function activate(context: vscode.ExtensionContext) {
   const { getCache, setCache } = initCache(context);
 
-  const disposable = vscode.commands.registerCommand(
-    'extension.upgradeDependencies',
-    async () => {
-      if (!vscode.workspace.workspaceFolders) {
-        vscode.window.showWarningMessage(t('open.workspace.first'));
-        return;
-      }
-
-      const workspacePath = vscode.workspace.workspaceFolders[0].uri.fsPath;
-      await checkAndUpgradeDependencies(workspacePath);
-    },
-  );
-
   const manualInstallDisposable = vscode.commands.registerCommand(
     'extension.manualInstallDependencies',
     async () => {
@@ -77,11 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
     const packageJsonPath = join(workspacePath, 'package.json');
     const lockFilePath = join(workspacePath, lockFile);
 
-    if (!existsSync(packageJsonPath)) {
-      return;
-    }
-
-    if (!existsSync(lockFilePath)) {
+    if (!existsSync(packageJsonPath) || !existsSync(lockFilePath)) {
       return;
     }
 
@@ -94,14 +77,9 @@ export function activate(context: vscode.ExtensionContext) {
     const cachedMd5 = cacheData[workspacePath];
 
     if (cachedMd5 !== currentMd5) {
-      let shouldUpdate = false;
+      let shouldUpdate = autoUpdate;
 
-      if (autoUpdate) {
-        shouldUpdate = true;
-        vscode.window.showInformationMessage(
-          t('lock.file.changed.auto', { name: lockFile }),
-        );
-      } else {
+      if (!autoUpdate) {
         const choice = await vscode.window.showInformationMessage(
           t('lock.file.changed', { name: lockFile }),
           t('update'),
@@ -116,9 +94,9 @@ export function activate(context: vscode.ExtensionContext) {
     }
   };
 
-  function upgradeDependencies(workspacePath: string, command: string, packageManager: PackageManager, lockFile: string) {
+  async function upgradeDependencies(workspacePath: string, command: string, packageManager: PackageManager, lockFile: string) {
     try {
-      vscode.window.withProgress(
+      await vscode.window.withProgress(
         {
           location: vscode.ProgressLocation.Notification,
           title: t('updating.dependencies', { name: packageManager }),
@@ -129,10 +107,6 @@ export function activate(context: vscode.ExtensionContext) {
 
       vscode.window.showInformationMessage(t('upgrade.completed'), { modal: false });
 
-      setTimeout(() => {
-        vscode.commands.executeCommand('workbench.action.closeNotification');
-      }, 3000);
-        
       const lockFilePath = join(workspacePath, lockFile);
       const currentMd5 = genMd5(lockFilePath);
 
@@ -146,7 +120,6 @@ export function activate(context: vscode.ExtensionContext) {
     }
   }
 
-  context.subscriptions.push(disposable);
   context.subscriptions.push(manualInstallDisposable);
   context.subscriptions.push(manualUpgradeDisposable);
 
