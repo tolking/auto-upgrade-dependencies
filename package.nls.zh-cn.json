@@ -1,6 +1,6 @@
 {
   "extension.upgradeDependencies.title": "升级依赖",
-  "extension.manualUpdateDependencies.title": "更新依赖",
+  "extension.manualInstallDependencies.title": "安装依赖",
   "extension.manualUpgradeDependencies.title": "升级依赖",
   "configuration.title": "自动升级依赖",
   "configuration.packageManager.description": "选择用于安装依赖的包管理器",

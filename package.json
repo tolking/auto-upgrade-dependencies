@@ -1,6 +1,6 @@
 {
-	"name": "auto-upgrade-dependencies",
-	"displayName": "Auto Upgrade Dependencies",
+	"name": "upgrade-dependencies",
+	"displayName": "Upgrade Dependencies",
 	"description": "Automatically detect and upgrade dependencies when lock files change",
 	"version": "0.0.1",
 	"engines": {
@@ -8,7 +8,7 @@
 	},
 	"repository": {
     "type": "git",
-    "url": "https://github.com/tolking/auto-upgrade-dependencies"
+    "url": "https://github.com/tolking/upgrade-dependencies"
   },
   "keywords": [
     "node",
@@ -19,9 +19,9 @@
   "author": "tolking <qw13131wang@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tolking/auto-upgrade-dependencies/issues"
+    "url": "https://github.com/tolking/upgrade-dependencies/issues"
   },
-  "homepage": "https://github.com/tolking/auto-upgrade-dependencies#readme",
+  "homepage": "https://github.com/tolking/upgrade-dependencies#readme",
 	"publisher": "tolking",
 	"categories": [
 		"Other"
@@ -37,8 +37,8 @@
 				"title": "%extension.upgradeDependencies.title%"
 			},
 			{
-				"command": "extension.manualUpdateDependencies",
-				"title": "%extension.manualUpdateDependencies.title%",
+				"command": "extension.manualInstallDependencies",
+				"title": "%extension.manualInstallDependencies.title%",
 				"icon": "$(sync)"
 			},
 			{
@@ -50,7 +50,7 @@
 		"menus": {
 			"editor/title": [
 				{
-					"command": "extension.manualUpdateDependencies",
+					"command": "extension.manualInstallDependencies",
 					"when": "resourceFilename == package.json",
 					"group": "navigation"
 				},
@@ -71,7 +71,7 @@
 						"yarn",
 						"pnpm"
 					],
-					"default": "pnpm",
+					"default": "npm",
 					"description": "%configuration.packageManager.description%"
 				},
 				"upgradeDependencies.autoUpdate": {

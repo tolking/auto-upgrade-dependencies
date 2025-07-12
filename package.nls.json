@@ -1,6 +1,6 @@
 {
   "extension.upgradeDependencies.title": "Upgrade Dependencies",
-  "extension.manualUpdateDependencies.title": "Update Dependencies",
+  "extension.manualInstallDependencies.title": "Install Dependencies",
   "extension.manualUpgradeDependencies.title": "Upgrade Dependencies",
   "configuration.title": "Auto Upgrade Dependencies",
   "configuration.packageManager.description": "Select package manager for installing dependencies",
