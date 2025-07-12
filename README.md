@@ -1,4 +1,4 @@
-# Auto Upgrade Dependencies
+# Upgrade Dependencies
 
 > Automatically detect and upgrade dependencies when lock files change
 
@@ -6,7 +6,7 @@ When working in a team, you may encounter issues with different dependency versi
 
 For example, if a team member updates dependencies and commits code, you might not realize that you need to update your dependencies, leading to code execution errors.
 
-Auto Upgrade Dependencies helps you automatically detect changes in dependency versions and prompts you to upgrade them.
+Upgrade Dependencies helps you automatically detect changes in dependency versions and prompts you to upgrade them.
 
 ## Features
 
