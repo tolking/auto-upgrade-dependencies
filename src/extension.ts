@@ -80,8 +80,9 @@ export function activate(context: vscode.ExtensionContext) {
       let shouldUpdate = autoUpdate;
 
       if (!autoUpdate) {
+        const workspaceName = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(workspacePath))?.name || 'Unknown';
         const choice = await vscode.window.showInformationMessage(
-          t('lock.file.changed', { name: lockFile }),
+          t('lock.file.changed', { name: lockFile, workspace: workspaceName }),
           t('update'),
           t('later'),
         );
@@ -95,17 +96,22 @@ export function activate(context: vscode.ExtensionContext) {
   };
 
   async function upgradeDependencies(workspacePath: string, command: string, packageManager: PackageManager, lockFile: string) {
+    const workspaceName = vscode.workspace.getWorkspaceFolder(vscode.Uri.file(workspacePath))?.name || 'Unknown';
+    
     try {
       await vscode.window.withProgress(
         {
           location: vscode.ProgressLocation.Notification,
-          title: t('updating.dependencies', { name: packageManager }),
+          title: t('updating.dependencies', { name: packageManager, workspace: workspaceName }),
           cancellable: false,
         },
         () => runCommand(workspacePath, command),
       );
 
-      vscode.window.showInformationMessage(t('upgrade.completed'), { modal: false });
+      vscode.window.showInformationMessage(
+        t('upgrade.completed', { workspace: workspaceName }), 
+        { modal: false }
+      );
 
       const lockFilePath = join(workspacePath, lockFile);
       const currentMd5 = genMd5(lockFilePath);
@@ -116,7 +122,7 @@ export function activate(context: vscode.ExtensionContext) {
         setCache(cacheData);
       }
     } catch {
-      vscode.window.showErrorMessage(t('upgrade.failed'));
+      vscode.window.showErrorMessage(t('upgrade.failed', { workspace: workspaceName }));
     }
   }
 
