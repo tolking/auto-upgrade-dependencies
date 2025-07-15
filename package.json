@@ -2,7 +2,7 @@
 	"name": "upgrade-dependencies",
 	"displayName": "Upgrade Dependencies",
 	"description": "Automatically detect and upgrade dependencies when lock files change",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "tolking",
 	"icon": "images/icon.png",
 	"engines": {
