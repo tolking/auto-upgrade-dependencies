@@ -33,7 +33,7 @@ export function getCurrentWorkspacePath() {
   }
   const activeEditor = window.activeTextEditor;
   let workspacePath: string;
-        
+
   if (activeEditor && activeEditor.document.fileName.endsWith('package.json')) {
     workspacePath = dirname(activeEditor.document.fileName);
   } else {
@@ -49,11 +49,11 @@ export function runCommand(workspacePath: string, command: string) {
       name: 'Upgrade Dependencies',
       cwd: workspacePath,
     });
-    
+
     terminal.sendText(command);
-    
+
     let isResolved = false;
-    
+
     const closeDisposable = window.onDidEndTerminalShellExecution((event) => {
       if (event.terminal === terminal && !isResolved) {
         isResolved = true;
